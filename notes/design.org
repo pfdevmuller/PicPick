@@ -1,0 +1,66 @@
+* REST Resource Design
+** Pictures
+These are the actual pictures we are picking from.
+Probably sourced from a folder or tree/list of folders.
+
+Things they have:
++ Path
++ Filename
++ file-related metadata
++ Ratings
++ Can be part of a project
+
+Things we want to do with them:
++ GET them to display them - a path is probably sufficient
++ View their ratings
++ POST/PUT a new rating
++ List them based on specific criteria?
+
+** Ratings
+Users rate each picture with the following:
++ No!
++ Probably no...
++ Probably yes...
++ Yes!
+The ratings are aggregated and correlated between users
+to determine which pictures are most liked.
+
+Things they have:
++ Part of a project
++ Set by a User
++ Refers to a picture
+
+Thing we want to do with them:
++ GET them for a specific user and picture
++ Aggregate them into reports - more detail below
++ POST/PUT a new rating for a specific user and picture
+
+** Projects
+Projects groups a certain set of pictures and ratings from those pictures.
+
+Things they have:
++ A list of pictures
++ Reports
++ A list of ratings?
++ A list of users?
+
+Things we want to do with them:
++ Create them
++ Work on them by rating pictures in the project
++ View their reports
+
+** Reports
+Reports aggregate the ratings in a given project in a meaningful way.
+
+Things they have:
++ Relate to a project
++ Graphs
++ Lists of pictures in specific categories
++ Criteria
++ Reports are likely to refer to each other
+  + eg, General project report links to report of consensus-pics
++ There may be distinct types of reports
+
+Things we want to do with them:
++ View them for a specific project
+  + And possibly other criteria, depending on report
