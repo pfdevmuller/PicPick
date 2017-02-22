@@ -1,0 +1,10 @@
+* Features
+* Fixes
+** TODO Somehow wrap the server in a class
+Currently, client code, like the integ tests, address the server via the module.
+It would make more sense to me if the server was an instantiated class,
+on which we can inject data at instantiation.
+
+Either I am going to learn that this is actually pretty OK for Python code, or I need to figure out a way to get a Flask server running inside a class.
+
+(So far, I have not been able to get the routing annotations to work if the routing methods are in a class)

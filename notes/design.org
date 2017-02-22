@@ -64,3 +64,9 @@ Things they have:
 Things we want to do with them:
 + View them for a specific project
   + And possibly other criteria, depending on report
+* Testing Goal
+** Walking Skeleton
+From a test environment:
++ Bring up a server
++ GET a picture resource
++ Validate the response
