@@ -1,4 +1,13 @@
 * Features
+** DONE Server comes up and responds to get_picture request
+CLOSED: [2017-02-23 Thu 10:15]
+** TODO Server can return list of files in a flat directory
++ Not yet checking which files are images
++ No paging yet
++ Not recursive
+** TODO Can recursively find files and list them
++ Any files, not just images
+** TODO Can figure out which files are images
 * Fixes
 ** TODO Somehow wrap the server in a class
 Currently, client code, like the integ tests, address the server via the module.
@@ -8,3 +17,6 @@ on which we can inject data at instantiation.
 Either I am going to learn that this is actually pretty OK for Python code, or I need to figure out a way to get a Flask server running inside a class.
 
 (So far, I have not been able to get the routing annotations to work if the routing methods are in a class)
+** TODO Make test filesystem interaction OS agnostic
+Tests currently rely on /tmp/ folder, making it unix specific
+** TODO Use proper path libraries, not string manipulation
