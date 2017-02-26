@@ -2,6 +2,7 @@ import pytest
 import os.path
 import shutil
 import time
+import untangle
 from .context import picpick
 import picpick.picpickapp as ppa
 
@@ -32,6 +33,9 @@ class TestPicPickApp:
             dst = self.images_folder + "/test_image_" + str(i) + ".jpg"
             shutil.copyfile(test_image_filename, dst)
 
+    def _get_test_image_paths(self, images_folder):
+        return [images_folder + "/test_image_" + str(i) + ".jpg" for i in range(20)]
+
     def teardown_class(self):
         assert os.path.isdir(self.test_folder), "Could not find test folder to delete it."
         shutil.rmtree(self.test_folder)
@@ -45,7 +49,14 @@ class TestPicPickApp:
     def test_can_get_list_of_images(self):
         response = self.client.get('/'+self.TEST_PROJECT_NAME+'/Pics')
         msg = response.get_data().decode("utf-8")
-        assert 'A list!' in msg
+        parsed = untangle.parse(msg)
+
+        list = parsed.root.picture_list
+
+        expected = self._get_test_image_paths(self.images_folder)
+        assert len(expected) > 1, 'Expected more than 1 path in test image path list'
+
+        assert list == expected, "Expected picture list to match test folder contents"
 
 
 
