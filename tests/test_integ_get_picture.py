@@ -53,10 +53,14 @@ class TestPicPickApp:
         msg = response.get_data().decode("utf-8")
         parsed = json.loads(msg)
 
-        expected = self._get_test_image_paths(self.images_folder)
+        image_paths = self._get_test_image_paths(self.images_folder)
+        # We expect paths relative to the image folder, so we trim that off here:
+        expected = list(map(lambda path : path.replace(self.images_folder + '/', '', 1), image_paths))
+        print("EXPECTED: " + str(expected))
         assert len(expected) > 1, 'Expected more than 1 path in test image path list'
 
-        assert parsed == expected, "Expected picture list to match test folder contents"
+        # TODO use a set here instead!
+        assert sorted(parsed) == sorted(expected), "Expected picture list to match test folder contents"
 
 
 
