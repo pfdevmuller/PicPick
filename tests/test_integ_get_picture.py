@@ -2,6 +2,7 @@ import pytest
 import os.path
 import shutil
 import time
+import json
 from .context import picpick
 import picpick.picpickapp as ppa
 
@@ -28,9 +29,11 @@ class TestPicPickApp:
         if not os.path.exists(self.images_folder):
             os.makedirs(self.images_folder)
 
-        for i in range(20):
-            dst = self.images_folder + "/test_image_" + str(i) + ".jpg"
+        for dst in self._get_test_image_paths(self, self.images_folder):
             shutil.copyfile(test_image_filename, dst)
+
+    def _get_test_image_paths(self, images_folder):
+        return [images_folder + "/test_image_" + str(i) + ".jpg" for i in range(20)]
 
     def teardown_class(self):
         assert os.path.isdir(self.test_folder), "Could not find test folder to delete it."
@@ -45,7 +48,14 @@ class TestPicPickApp:
     def test_can_get_list_of_images(self):
         response = self.client.get('/'+self.TEST_PROJECT_NAME+'/Pics')
         msg = response.get_data().decode("utf-8")
-        assert 'A list!' in msg
+        parsed = json.loads(msg)
+
+        list = parsed['pictures']
+
+        expected = self._get_test_image_paths(self.images_folder)
+        assert len(expected) > 1, 'Expected more than 1 path in test image path list'
+
+        assert list == expected, "Expected picture list to match test folder contents"
 
 
 
