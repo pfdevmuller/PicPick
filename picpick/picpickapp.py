@@ -6,4 +6,8 @@ app = Flask(__name__)
 def get_picture(filename):
     return "Hello tester!"
 
+@app.route('/TestProject/Pics')
+def get_picture_list():
+    return "A list!"
+
 #app.run(debug=True)

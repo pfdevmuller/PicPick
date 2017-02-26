@@ -7,6 +7,8 @@ import picpick.picpickapp as ppa
 
 class TestPicPickApp:
 
+    TEST_PROJECT_NAME = 'TestProject'
+
     def setup_class(self):
         print("setting up for tests")
         self._build_test_image_folder(self)
@@ -34,10 +36,17 @@ class TestPicPickApp:
         assert os.path.isdir(self.test_folder), "Could not find test folder to delete it."
         shutil.rmtree(self.test_folder)
 
-    def test_against_server(self):
-        rv = self.client.get('/TestProject/Pics/test_pic.jpg')
-        msg = rv.get_data().decode("utf-8")
+    def test_can_get_response_from_test_pic(self):
+        response = self.client.get('/'+self.TEST_PROJECT_NAME+'/Pics/test_pic.jpg')
+        msg = response.get_data().decode("utf-8")
         assert 'Hello tester' in msg
+
+
+    def test_can_get_list_of_images(self):
+        response = self.client.get('/'+self.TEST_PROJECT_NAME+'/Pics')
+        msg = response.get_data().decode("utf-8")
+        assert 'A list!' in msg
+
 
 
 
