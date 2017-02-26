@@ -5,6 +5,7 @@ import time
 import json
 from .context import picpick
 import picpick.picpickapp as ppa
+from picpick.imagecollection import ImageCollection
 
 class TestPicPickApp:
 
@@ -13,6 +14,8 @@ class TestPicPickApp:
     def setup_class(self):
         print("setting up for tests")
         self._build_test_image_folder(self)
+        image_collection = ImageCollection(self.images_folder)
+        ppa.set_image_collection(image_collection)
 
         ppa.app.config['TESTING'] = True
         self.client = ppa.app.test_client()
@@ -50,12 +53,10 @@ class TestPicPickApp:
         msg = response.get_data().decode("utf-8")
         parsed = json.loads(msg)
 
-        list = parsed['pictures']
-
         expected = self._get_test_image_paths(self.images_folder)
         assert len(expected) > 1, 'Expected more than 1 path in test image path list'
 
-        assert list == expected, "Expected picture list to match test folder contents"
+        assert parsed == expected, "Expected picture list to match test folder contents"
 
 
 
