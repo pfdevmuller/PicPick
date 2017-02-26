@@ -8,6 +8,6 @@ def get_picture(filename):
 
 @app.route('/TestProject/Pics')
 def get_picture_list():
-    return "<root><picture_list></picture_list></root>"
+    return "A list!"
 
 #app.run(debug=True)
