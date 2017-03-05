@@ -1,14 +1,19 @@
 * Features
 ** DONE Server comes up and responds to get_picture request
 CLOSED: [2017-02-23 Thu 10:15]
-** TODO Server can return list of files in a flat directory
+** DONE Server can return list of files in a flat directory
+CLOSED: [2017-03-02 Thu 21:14]
 + Not yet checking which files are images
 + No paging yet
 + Not recursive
-** TODO Can recursively find files and list them
+** DONE Can recursively find files and list them
+CLOSED: [2017-03-05 Sun 13:11]
 + Any files, not just images
 ** TODO Can figure out which files are images
-Currently just jpgs
+Currently just jpgs and pngs
+** TODO The name and image path of a project can be read
+** TODO A new project can be created
+** TODO A list of project names can be requested
 * Fixes
 ** TODO Somehow wrap the server in a class
 Currently, client code, like the integ tests, address the server via the module.

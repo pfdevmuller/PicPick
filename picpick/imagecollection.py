@@ -1,6 +1,5 @@
 import os
 
-
 class ImageCollection:
 
     IMAGE_EXTENSIONS = ['.jpg', '.png']
@@ -11,9 +10,10 @@ class ImageCollection:
 
     def _find_pictures(self):
         self.pictures = []
-        for root, dirs, files in os.walk(self.root_path):
+        for dir_path, subdirs, files in os.walk(self.root_path):
             for file in files:
                 temp, extension = os.path.splitext(file)
                 if extension in self.IMAGE_EXTENSIONS:
-                    self.pictures.append(file)
+                    relpath = os.path.relpath(os.path.join(dir_path, file), self.root_path)
+                    self.pictures.append(relpath)
 
